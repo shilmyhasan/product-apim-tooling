@@ -20,12 +20,12 @@ package v2
 
 import (
 	"fmt"
-	"github.com/wso2/product-apim-tooling/import-export-cli/specs/params"
 	"path"
 
 	"github.com/Jeffail/gabs"
 	"github.com/go-openapi/loads"
 	"github.com/mitchellh/mapstructure"
+	"github.com/wso2/product-apim-tooling/import-export-cli/specs/params"
 )
 
 func swagger2XWO2BasePath(document *loads.Document) (string, bool) {
@@ -184,13 +184,15 @@ func buildHttpEndpoint(production *Endpoints, sandbox *Endpoints) string {
 	if len(production.Urls) > 0 {
 		var ep params.Endpoint
 		ep.Url = &production.Urls[0]
-		ep.AdvanceEndpointConfig.TimeOutInMillis = production.AdvanceEndpointConfig.TimeOutInMillis
+		ep.AdvanceEndpointConfig.TimeOutInMillis =
+			production.AdvanceEndpointConfig.TimeOutInMillis
 		_, _ = jsonObj.SetP(ep, "production_endpoints")
 	}
 	if len(sandbox.Urls) > 0 {
 		var ep params.Endpoint
 		ep.Url = &sandbox.Urls[0]
-		ep.AdvanceEndpointConfig.TimeOutInMillis = sandbox.AdvanceEndpointConfig.TimeOutInMillis
+		ep.AdvanceEndpointConfig.TimeOutInMillis =
+			sandbox.AdvanceEndpointConfig.TimeOutInMillis
 		_, _ = jsonObj.SetP(ep, "sandbox_endpoints")
 	}
 	return jsonObj.String()
